@@ -1,16 +1,42 @@
-# React + Vite
+# DevTinder-web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- Created a Vite + React Project
+    - React Command: npm create vite@latest devTinderWeb -- --template react(using react instead of vue)
+    - npm install - installs all the dependencies
+    - npm run dev
 
-Currently, two official plugins are available:
+- Tailwind & Dazy UI for building the application
+    - Tailwind Commnd : npm install tailwindcss @tailwindcss/vite
+        - A vite.config.js file is created
+            - Inside vite.config.js
+            - Add - import tailwindcss from '@tailwindcss/vite'
+            // https://vite.dev/config/
+            export default defineConfig({
+            plugins: [
+                react(),
+                tailwindcss() - this line is added
+            ],})
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+        - Add @import "tailwindcss" - index.css
 
-## React Compiler
+    - Design Library : Component Library - Compatible with tailwind
+        - Use it as a Plug In
+        - Command: npm i -D daisyui@latest
+        - In index.css - @plugin "daisyui";
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Add NavBar Component to App.jsx
 
-## Expanding the ESLint configuration
+- Install react-router lib - npm install react-router
+    - Using different approach for creating routes
+    - Using <BrwoserRouter> <Routes> <Route>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Created Footer - fixed bottom-0 (fixed in the bottom)
+
+
+
+# Routing 
+
+- Body (<BrowserRouter>)
+    Login (<Router>)
+    Profile (<Router>) 
+
