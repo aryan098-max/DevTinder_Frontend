@@ -17,7 +17,7 @@
                 tailwindcss() - this line is added
             ],})
 
-        - Add @import "tailwindcss" - index.css
+        - Add @import "tailwindcss"; - index.css, #note- don't forget the semicolon
 
     - Design Library : Component Library - Compatible with tailwind
         - Use it as a Plug In
@@ -33,10 +33,10 @@
 - Created Footer - fixed bottom-0 (fixed in the bottom)
 
 
-
 # Routing 
-- Body will be replaced by the children routes Login or Profile
-- Body (<BrowserRouter>)
+- <Outlet> will be replaced by the children routes Login or Profile
+- Import Login and Profile where they are called (App.jsx)
+- Body (<BrowserRouter>,<Routes><Router>)
     Login (<Router>)
     Profile (<Router>) 
 
