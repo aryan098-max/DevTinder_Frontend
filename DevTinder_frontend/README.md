@@ -97,5 +97,22 @@
 # Create a constant file inside utils -
 - const BASE_URL ='http://localhost:7000';
 - Keep the base ('http://localhost:7000') of axio inside the constant file
-- 
+
+# Using token for keeping user loggedIn 
+- You must make request to -/profile/view - to get the user
+- Next, call useEffect() - for calling the fetchUser() after Feed Component is loaded
+- Token Not Valid - Navigate user back to ("/login")
+
+# Use Link for Profile and Logo - redirect
+
+# API call 
+- Only make a api call if userData is not present
+- Note: When you manually change the url an api call is made.
+- However, if you do in the page using <Link to="/"> it won't make a full page reload
+- So, if you change the url manually an api call is made and page reloads
+
+# status - 401 - anauthorized
+
+# Strict Mode
+- 2 Api calls
 
