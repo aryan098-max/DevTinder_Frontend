@@ -11,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate()
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
 
   const handleLogin= async ()=>{
@@ -28,10 +29,10 @@ const Login = () => {
       navigate("/");
 
     } catch(err){
+      setError(err?.response?.data?.message || "Something Went Wrong!!")
       console.error(err);
     }
   }
-
 
   return (
     <div className='flex justify-center mt-10'>
@@ -59,7 +60,7 @@ const Login = () => {
                 />
               </fieldset>
             </div>
-
+              <p className='text-red-500'>{error}</p>
             <div className="card-actions justify-center">
               <button className="btn btn-primary" onClick={handleLogin}>Login</button>
             </div>

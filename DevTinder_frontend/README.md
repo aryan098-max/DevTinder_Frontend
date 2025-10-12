@@ -110,9 +110,16 @@
 - Note: When you manually change the url an api call is made.
 - However, if you do in the page using <Link to="/"> it won't make a full page reload
 - So, if you change the url manually an api call is made and page reloads
-
-# status - 401 - anauthorized
+- status - 401 - anauthorized
 
 # Strict Mode
-- 2 Api calls
+- In Strict mode 2 Api calls are made
+
+# Logout 
+- Make an api call to "/logout"
+- After logging out - clear the redux store
+- Dispatch an action - removeUser()
+
+# Error Dynamic, Adding Error in Login Card
+- For making error dynamic you have to use state variable 
 
