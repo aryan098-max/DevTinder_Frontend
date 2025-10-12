@@ -122,4 +122,18 @@
 
 # Error Dynamic, Adding Error in Login Card
 - For making error dynamic you have to use state variable 
+- For making anything dyanmic use state variable
+
+# Building Feed Page
+ - Make a get request to "/feed" 
+ - Create a feed slice 
+ - Add in the redux store
+ - Add response from the feed to redux store
+ - Read the feed from the store 
+ - call getFeed() inside useEffect()
+
+ # Building UserCard Component 
+ - Call UserCard Component inside Feed
+ - To make this card use card component from daisy ui
+ - Pass the props from Feed calling <UserCard>
 
