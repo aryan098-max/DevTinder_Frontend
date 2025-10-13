@@ -1,9 +1,15 @@
-import React from 'react'
+import EditProfile from './EditProfile';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
-  return (
+
+  // Fetching user from Slice
+  const user = useSelector((store)=>store.user);
+
+  // if user is present then only pre-fill the data
+  return user && (
     <div>
-      <h1>Profile</h1>
+      <EditProfile userData={user}/>
     </div>
   )
 }

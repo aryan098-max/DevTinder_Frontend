@@ -137,3 +137,34 @@
  - To make this card use card component from daisy ui
  - Pass the props from Feed calling <UserCard>
 
+ # EditProfile Component 
+ - To Edit the Proile make an Edit Profile Component
+ - Copy Login Form
+ - Pass the Data to EditProfile Component from Profile 
+ - In Profile get the data from the store
+ - Prefill the data by getting the data from the store 
+
+ ## Imp concept inside Edit Component
+ - Only prefill the data if user is present
+    # You can only see live changes if you pass the state variables
+    - pass <UserCard userData={{firstName, lastName, age, gender, about, photoURL}}>
+    - These all values are state variables, which makes changes dynamic and live 
+    - Therefore, pass a new obj with state variable as values
+
+ - Call <UserCard Component> to let user see how their card looks
+ - Keep them side by side
+
+# Saving Profile & Sending Notification
+- Call /profile/edit route from the backend
+- Add saving profile logic to Save Profile 
+- While making a patch request, send the updated data 
+- After sending the new data - dispatch an action to update redux store
+- Note: Make sure that response is sending data back
+- Clear erros after a vali data is entered 
+
+## Adding a Toast for showing profile udpated successfully
+- Initially, showToast is false
+- Use a state variable for this
+- Use {showToast && <div>} 
+- Use setTimeout(()=>{ setShowToast(showToast)})
+- Use z value for showing toast above
