@@ -35,7 +35,7 @@ const NavBar = () => {
             </div>
             {/* The profile tab is only visible when user is present */}
            {user && <div className="flex gap-2">
-                <div><p>{"Welcome " + user.firstName}</p></div>
+                <div><p>{"Welcome" + ", " +user.firstName}</p></div>
                 <div className="dropdown dropdown-end mr-10">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
@@ -53,7 +53,7 @@ const NavBar = () => {
                         <span className="badge">New</span>
                     </Link>
                     </li>
-                    <li><a>Settings</a></li>
+                    <li><Link to="/connections">Connections</Link></li>
                     <li><a onClick={handleLogout}>Logout</a></li>
                 </ul>
                 </div>

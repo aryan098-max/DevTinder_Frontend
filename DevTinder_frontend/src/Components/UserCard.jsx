@@ -6,10 +6,10 @@ const UserCard = ({userData})=>{
 
     return(
         <div>
-            <div className="card bg-base-300 w-96 shadow-sm m-2 p-2">
+            <div className="card bg-base-300 w-85 shadow-sm m-2 p-2">
                 <figure>
                     <img
-                    className="w-50 h-32 rounded-lg"
+                    className="w-50 h-40 rounded-lg"
                     src={photoURL}
                     alt="profilePhoto" />
                 </figure>

@@ -168,3 +168,21 @@
 - Use {showToast && <div>} 
 - Use setTimeout(()=>{ setShowToast(showToast)})
 - Use z value for showing toast above
+
+# Add two new components Connection && Request
+
+# Connection Component 
+- Define a function fetchConnection()
+- Make an api call to "/users/connections"
+- Get all the connections of the user
+## You can either create state variable or redux slice for storing connections
+- Going with redux slice 
+- Create a new connectionSlice and export the reducer and actions
+- Import into the appStore (redux store) - cruical step don't forget it
+- Dispatch an action to store the connection inside the redux store
+- Now, for reading the connection use useSelector()
+- Add conditional statement for connections obj not existing
+- Add conditinoal statement for connections length 0 
+- For list of connnections (not using a component this time),
+- We are using <div> to display the list of connections
+- In backend - populate all other fields required in the front-end
