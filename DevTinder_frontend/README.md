@@ -171,7 +171,7 @@
 
 # Add two new components Connection && Request
 
-# Connection Component 
+# Connections Component 
 - Define a function fetchConnection()
 - Make an api call to "/users/connections"
 - Get all the connections of the user
@@ -184,5 +184,18 @@
 - Add conditional statement for connections obj not existing
 - Add conditinoal statement for connections length 0 
 - For list of connnections (not using a component this time),
-- We are using <div> to display the list of connections
+- We are using map & <div> to display the list of connections
 - In backend - populate all other fields required in the front-end
+
+# Requests Component
+- All the initial steps are similar to Connections Component 
+- Creating a slice, adding it to redux store
+- Create a fetchRequest() function and use useEffect() function 
+- Call useDispatch() useSelector() for adding & reading data from the redux store
+- Add conditional statement when requests obj doesn't exist
+- Add conditional statement when request length is zero.
+- Make use of map & <div> for displaying list of requests
+- Add a link of Requests to the Navbar
+
+# Note: Always use optional chaining when you are fetching data from API
+# Note: Add key in the <div> and the key should be id
