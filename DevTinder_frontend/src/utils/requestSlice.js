@@ -9,8 +9,12 @@ const requestSlice = createSlice({
         addRequest:(state,action)=>{
             return action.payload;
         },
-        removeRequest:()=>{
-            return null;
+        removeRequest:(state,action)=>{
+
+            // returning true for the requests that doesn't come from removeRequest()
+            // action.payload = _id 
+            const newArray = state.filter((r)=> r._id !== action.payload);
+            return newArray;
         }
     }
 })

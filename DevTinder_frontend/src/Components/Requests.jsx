@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {BASE_URL} from "../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
-import {addRequest} from "../utils/requestSlice";
-import { useEffect } from 'react';
+import {addRequest, removeRequest} from "../utils/requestSlice";
+import { useEffect} from 'react';
 
 const Requests = ()=>{
 
     const dispatch = useDispatch();
+
+    // defining state varibales for showing and hiding the users
 
     // reading from the redux store 
     const requests = useSelector((store)=>store.requests)
@@ -24,6 +26,23 @@ const Requests = ()=>{
             console.error(err);
         }
     }
+
+    // requestId = _id, coming from the redux store
+    // redux store has all the requests
+    const reviewRequest =  async(status, _id)=>{
+
+        try {  
+                // response not required!
+                await axios.post(BASE_URL + "/request/review/" + status + "/" + _id,{}, {withCredentials:true})
+
+                // removing the request from the redux store
+                dispatch(removeRequest(_id));
+            }
+        catch(err){
+            console.error(err)
+        } 
+    }
+
 
     // always add dependecy array
     useEffect(()=>{
@@ -55,8 +74,8 @@ const Requests = ()=>{
                                 <p>{about}</p>
                             </div>
                             <div className='flex'>
-                                <button className="btn btn-primary mx-2">Accept</button>
-                                <button className="btn btn-secondary">Reject</button>
+                                <button className="btn btn-primary mx-2" onClick={()=>reviewRequest("accepted",request._id)}>Accept</button>
+                                <button className="btn btn-secondary" onClick={()=>reviewRequest("rejected",request._id)}>Reject</button>
                             </div>
                            
                         </div>
