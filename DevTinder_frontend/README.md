@@ -211,3 +211,11 @@
 - removeRequest() logic is little bit tricky, we are going to accept/reject the request
 - Next, we are going to update the redux store
 - Add a toast after you accept a requst
+
+# UserCard - Building Ingore and Interested Feature 
+- Creating clickable interested and rejected is similar to requests.js
+- Make sure that feed contains all the array - use optional chaining 
+- Extract all the users into feed in Feed
+- If we are going to follow Tinder approach. Displaying only 1 user at a time
+- No, need of map, As the user are removed from the feed. Redux store is udpated.
+- Always use optional chaining to avoid null errors.

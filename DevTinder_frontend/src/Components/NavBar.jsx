@@ -48,14 +48,16 @@ const NavBar = () => {
                     tabIndex={0}
                     className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                     <li>
-                    <Link to="/profile" className="justify-between">
+                    <Link to="/profile" className="justify-between text-sm">
                         Profile
-                        <span className="badge">New</span>
+                    </Link>
+                    <Link to="/" className="justify-between text-sm">
+                        feed
                     </Link>
                     </li>
-                    <li><Link to="/connections">Connections</Link></li>
-                    <li><Link to="/requests">Received Requests</Link></li>
-                    <li><a onClick={handleLogout}>Logout</a></li>
+                    <li><Link to="/connections" className="text-sm">Connections</Link></li>
+                    <li><Link to="/requests" className="text-sm">Received Requests</Link></li>
+                    <li><a onClick={handleLogout} className="text-sm">Logout</a></li>
                 </ul>
                 </div>
             </div>}
