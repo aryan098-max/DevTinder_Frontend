@@ -33,7 +33,7 @@ const Requests = ()=>{
 
         try {  
                 // response not required!
-                await axios.post(BASE_URL + "/request/review/" + status + "/" + _id,{}, {withCredentials:true})
+                await axios.post(BASE_URL + `/request/review/${status}/${_id}`,{}, {withCredentials:true})
 
                 // removing the request from the redux store
                 dispatch(removeRequest(_id));

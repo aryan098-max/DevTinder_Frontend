@@ -12,8 +12,11 @@ const feedSlice = createSlice({
             return action.payload;
         },
 
-        removeFeed:()=>{
-            return null;
+        removeFeed:(state, action)=>{
+
+            // state has access to all the users in the feed
+            const newFeed = state.filter((r)=> r._id !== action.payload);
+            return newFeed;
         }
     }
 })
