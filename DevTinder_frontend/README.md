@@ -199,3 +199,15 @@
 
 # Note: Always use optional chaining when you are fetching data from API
 # Note: Add key in the <div> and the key should be id
+
+# Accepting a Request and Rejecting Request from Requests Component 
+- Add two buttons on Requests Component for accepting or rejecting receieved request
+- Define a function reviewRequest(status, requestId) => these are the dynamic params 
+- These dyanmic params will be used in the url - BASE_URL + "/user/review/+ status + "/" + requestID
+- Inside the button onClick={()=>reviewRequest("accepted",request._id)}
+- You must use a function inside a onClick(()=>reviewRequest) for calling reviewRequest 
+- The reason for doing this is because 
+- To hide the buttons after the user is accepted or rejected use redux action - removeRequest()
+- removeRequest() logic is little bit tricky, we are going to accept/reject the request
+- Next, we are going to update the redux store
+- Add a toast after you accept a requst

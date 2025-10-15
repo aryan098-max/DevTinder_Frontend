@@ -32,9 +32,9 @@ const Connections = ()=>{
     if(connections.length === 0) return <h1>No Connections Found</h1>;
 
     return(
-        <div className="my-10">
+        <div>
             <div className="text-center">
-                <h1 className="font-bold text-2xl">Connections</h1>
+                <h1 className="font-bold text-2xl my-2">Connections</h1>
             </div>
             {
                 connections.map((connection)=>{
