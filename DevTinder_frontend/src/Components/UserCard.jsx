@@ -25,7 +25,7 @@ const UserCard = ({userData})=>{
 
     return(
         <div>
-            <div className="card bg-base-300 w-85 shadow-sm m-2 p-2">
+            <div className="card bg-base-300 w-80 shadow-sm m-2 p-2">
                 <figure>
                     <img
                     className="w-50 h-50 rounded-lg"
@@ -39,7 +39,7 @@ const UserCard = ({userData})=>{
 
                     <div className="card-actions justify-end">
                     <button className="btn btn-primary" onClick={()=>handleSendRequest("interested",_id)}>Interested</button>
-                    <button className="btn btn-success" onClick={()=>handleSendRequest("ignore",_id)}>Ignore</button>
+                    <button className="btn btn-success" onClick={()=>handleSendRequest("ignored",_id)}>Ignored</button>
                     </div>
                 </div>
                 </div>

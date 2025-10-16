@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const NavBar = () => {
 
     // suscribing to the store - getting user info from the store
-    const user = useSelector((store)=>store.user);
+    const user = useSelector((store)=>store?.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const NavBar = () => {
             </div>
             {/* The profile tab is only visible when user is present */}
            {user && <div className="flex gap-2">
-                <div><p>{"Welcome" + ", " +user.firstName}</p></div>
+                <div><p>{"Welcome" + ", " + user?.firstName}</p></div>
                 <div className="dropdown dropdown-end mr-10">
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">

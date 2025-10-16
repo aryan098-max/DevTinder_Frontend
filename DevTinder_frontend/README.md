@@ -219,3 +219,23 @@
 - If we are going to follow Tinder approach. Displaying only 1 user at a time
 - No, need of map, As the user are removed from the feed. Redux store is udpated.
 - Always use optional chaining to avoid null errors.
+
+# Sign Up User 
+- Instead of creating a new component for signup 
+- We are going to use the existing login component for signup
+- For changing Login Form into Signup form - use Sate variable
+- const[isLoginForm, setIsLoginForm] = useState(true)
+- We can change the text of everything usign the state variable
+- {isLoginForm ? Login:Signup} - use of state variable
+- Make use of !isLoginForm && - use of !(Not) is very crucial
+- <p> inside tag - onClick=(()=>setIsLoginForm(!isLoginForm))
+- Another way - onClick=(()=>setIsLoginForm(value)=>!value)
+- Clear Error Message onClick(()=>{setIsLoginForm, setError()})
+- For handleSingUp also use the state variable toggle 
+
+# Changing Backend 
+- Our Backend code doesnt' set cookies when user signs up
+- Handle that case by making change in the backend code
+
+# Extracting the entire data 
+response?.data?.data

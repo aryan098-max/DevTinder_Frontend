@@ -29,8 +29,9 @@ const Connections = ()=>{
     // connection data doesn't exist 
     if(!connections) return;
 
-    if(connections.length === 0) return <h1>No Connections Found</h1>;
+    if(connections.length === 0) return <h1 className="text-center font-bold text-2xl m-4">No Connections Found! Send Connection Requests to other people</h1>
 
+   
     return(
         <div>
             <div className="text-center">
