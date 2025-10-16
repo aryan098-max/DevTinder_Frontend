@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 const Profile = () => {
 
   // Fetching user from Slice
-  const user = useSelector((store)=>store.user);
+  const user = useSelector((store)=>store?.user);
 
-  // if user is present then only pre-fill the data
+  // Not user don't render the Edit Profile Component
   return user && (
     <div>
       <EditProfile userData={user}/>

@@ -33,17 +33,17 @@ const Feed = () =>{
 
     },[])
 
-    console.log(feed)
-
     // feed doesn't exist
     if(!feed) return;
 
     // All the users are either accepted or rejected
     if(feed.length === 0) return <h1 className="text-center font-bold text-2xl">Loading or no users in feed</h1>
 
+    // The user card will be only displayed if feed exists
+
     return(
         feed &&
-        <div className="flex justify-center my-10">
+        <div className="flex justify-center mt-10 mb-40">
             {
                 // feed?.data.map((user, index)=> <UserCard key={index} userData={user}/>)
                 <UserCard userData={feed[0]}/>

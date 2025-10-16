@@ -7,12 +7,12 @@ import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({userData})=>{
 
-  const [firstName, setFirstName] = useState(userData.firstName);
-  const [lastName, setLastName] = useState(userData.lastName);
-  const [photoURL, setPhotoURL] = useState(userData.photoURL);
-  const [age, setAge] = useState(userData.age);
-  const [gender, setGender] = useState(userData.gender);
-  const [about, setAbout] = useState(userData.about);
+  const [firstName, setFirstName] = useState(userData?.firstName);
+  const [lastName, setLastName] = useState(userData?.lastName);
+  const [photoURL, setPhotoURL] = useState(userData?.photoURL);
+  const [age, setAge] = useState(userData?.age || 0);
+  const [gender, setGender] = useState(userData?.gender|| "male");
+  const [about, setAbout] = useState(userData?.about);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ const EditProfile = ({userData})=>{
         },3000)
 
     } catch (err){
+
         if(err){
             setError(err?.response?.data);
         }

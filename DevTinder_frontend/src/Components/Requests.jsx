@@ -54,7 +54,7 @@ const Requests = ()=>{
     // Adding conditionals for check
     if(!requests) return;
 
-    if(requests.length === 0) return <h1 className='text-center font-bold m-2'>User hasn't received any requests!</h1>
+    if(requests.length === 0) return <h1 className='text-center font-bold text-2xl m-2'>User hasn't received any requests!</h1>
 
     return(
         <div>
