@@ -240,8 +240,7 @@
 # Extracting the entire data 
 response?.data?.data
 
-# Deploying the Front-end 
-
+# DEPLOYING THE FRONT-END
 - Create an AWS account
 - Sign into console
 - Search for EC2 
@@ -265,13 +264,51 @@ response?.data?.data
         - You will be logged in to the instance 
 
     
-    ## Install dependencies
+    ## Install dependencies - nvm (use nvm not npm)
+        - Chose macos - nvm - npm - to get below command
         - Install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
         - Install node - same version as your computer 
-        - Command npm install v22.15.0 
+            - nvm install v22.15.0
+        - Command nvm install v22.15.0 
 
-    ## Git clone the files 
-        - Front-end 
-        - Back-end 
+    ## Git clone the files - Error might occur while building the production build
+        # Note: An error can occured here if the folder names are mismatched
+        - Solution: git pull origin main - make change consistent - push the code again
+
+    ## Front-end - git clone (HTTPS link)
         - cd Front-end - npm install (install all the dependencies)
         - npm run build (build a production build)
+        - For deploying the frontend project we need something known as # nginix
+        - Install nginx 
+            - In local machine - sudo apt udpate (update the ubuntu)
+
+            # Nginx Command
+            - sudo apt install nginx (press y)
+            - sudo systemctl start nginx (it feels nothing happened)
+            - sudo systemctl enable nginx
+            - sudo systemctl status nginx (check the status of nginx)
+
+            - Copy all the code of the dist folder into http server repository of nginx
+                - Copy code from dist(build files) to /var/www/html/
+                - check path: cd /var/www/html/
+                - sudo scp -r dist/* /var/www/html/ (copy command r = recursiveness, copy - dist/* (all the content), path-/var/www/html)
+                - check by going to the path and check the content, asses, index.html .....
+            
+            - After doing this go back to -02d455ad867dc8e05
+            - Clik public IPv4 address - Public IPv4 address 16.171.151.54 | open address - error will occur
+
+    ## Going back to instance for public IPv4 address
+    - This is the ip where we can access the server
+    - In this ip - your front-end app should be running 
+   
+   # Note: The app will be not live yet - you will face error 
+    - We have to enable port :80 
+    - To enable go to - isntances -02d455ad867dc8e05
+    - Go To Security - Security Groups - Inbound rules - Edit Inbound Rules
+    - After Edit Inbound Rules - Add rule - Port range - 80
+    - 🔍 0.0.0.0/0 (access from anywhere)
+    - Save rule
+
+    # Running the port properly - CHANGE HTTPS - HTTP
+    - By default port will run on https://16.171.151.54/ - GIVES ERROR
+    - CHANGE IT TO - http://16.171.151.54/
