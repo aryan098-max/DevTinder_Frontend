@@ -239,3 +239,39 @@
 
 # Extracting the entire data 
 response?.data?.data
+
+# Deploying the Front-end 
+
+- Create an AWS account
+- Sign into console
+- Search for EC2 
+
+# Setting EC2 - an instance of a machine in cloud
+- Name: DevTinder
+- Chose ubuntu as a operating system
+- Leave others options as default
+- # Imp create a key value pair - download the pem file 
+- Launch an instance 
+
+# Newly Created Instance 
+- E2 instance connect - default 
+- Go to SSH client 
+- Go to Git bash and go to the dowloaded pem file
+- cd downloads 
+
+    ## For pem file 
+        - chmod 400 "devTinder-secret.pem"
+        - ssh -i "devTinder-secret.pem" ubuntu@ec2-16-171-151-54.eu-north-1.compute.amazonaws.com
+        - You will be logged in to the instance 
+
+    
+    ## Install dependencies
+        - Install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+        - Install node - same version as your computer 
+        - Command npm install v22.15.0 
+
+    ## Git clone the files 
+        - Front-end 
+        - Back-end 
+        - cd Front-end - npm install (install all the dependencies)
+        - npm run build (build a production build)

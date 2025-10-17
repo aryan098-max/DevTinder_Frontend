@@ -1,12 +1,12 @@
-import Body from "./components/Body";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
+import Body from "./Components/Body";
+import Login from "./Components/Login";
+import Profile from "./Components/Profile";
 import {BrowserRouter, Routes, Route} from 'react-router';
 import appStore from "./utils/appStore";
 import { Provider } from "react-redux";
-import Feed from "./components/Feed";
-import Connections from "./components/Connections";
-import Requests from "./components/Requests";
+import Feed from "./Components/Feed";
+import Connections from "./Components/Connections";
+import Requests from "./Components/Requests";
 
 
 
