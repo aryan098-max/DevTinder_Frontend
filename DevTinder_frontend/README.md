@@ -240,6 +240,7 @@
 # Extracting the entire data 
 response?.data?.data
 
+=========================================================================================================================
 # DEPLOYING THE FRONT-END
 - Create an AWS account
 - Sign into console
@@ -305,10 +306,145 @@ response?.data?.data
     - We have to enable port :80 
     - To enable go to - isntances -02d455ad867dc8e05
     - Go To Security - Security Groups - Inbound rules - Edit Inbound Rules
-    - After Edit Inbound Rules - Add rule - Port range - 80
+    - After Edit Inbound Rules - Type - HTTP, Add rule - Port range - 80
     - 🔍 0.0.0.0/0 (access from anywhere)
     - Save rule
 
     # Running the port properly - CHANGE HTTPS - HTTP
     - By default port will run on https://16.171.151.54/ - GIVES ERROR
     - CHANGE IT TO - http://16.171.151.54/
+
+    Note: Our frontend code doesn't run on HTTPS because while creating inbound rules
+    We are selecting, Type- HTTP
+
+=====================================================================================================================
+
+# DEPLOYING Back-End
+
+# Note: We can make changes to cloned folder into a new instance via git pull as simple as that 
+ - cd to Front-end or Back-end as you wish to and 
+ - git pull
+
+# Initial Steps
+- Go to GitBash
+- cd downloads - (where there is your pem file)
+- Connect via SSH
+
+# cd to backend folder 
+- cd devTinder 
+- install all the dependencies
+
+# During the above process there can be error regarding the IP address
+- You need to add a IP address of the newly created instance of AWS
+- You can get this IP address from the - i-02d455ad867dc8e05
+- Copy the Public IPV4 address - 16.171.151.54
+
+# How to add the new Public IPV4 address 
+- Go to Database and Network access in the MonogDB
+- Go to IP access list 
+- Add IP address - 16.171.151.54 ( From the AWS EC2 instance)
+
+# To make a production build in Node.js
+- Inside your package.json inside the start you should have 
+- Inside the script - "start": "node src/app.js",
+- change into backend directory using: cd Backend
+- Therefore, do npm start / npm run start, inside the git bash
+- Yourbackend will start running as a production 
+
+# Next, you need to enable the port in which your backend server is running 
+- This process is similar to enabling 80 port for the frontend
+- My backend project is running on 7000 
+- Go to Security - Go to Security Groups - Edit Inbound rules
+- Add rule
+    - Type - Custom TCP
+    - Port Range - 7000
+    - Source - Any - 0.0.0.0/0
+    
+# Now your url should be like 
+- http://16.171.151.54:7000 (:port on which your backend is running)
+
+# PM2 serve vite build - keeps your application online 24/7
+- npm install pm2 -g - In your ubuntu (-g flag is very imp) (installs globally)
+- runs our backend in the background (so that we don't have to keep opening the terminal)
+- Now, we will do npm start via a process manager
+- The command below starts a new process - this process is online - running background
+- pm2 start npm -- start (give space after -- start, runs 24/7)
+
+# check logs on pm2 , helps to debug error
+- pm2 logs (helps to debug error)
+- pm2 flush npm (name of the application on the box of the process is npm not devTinder)
+
+# Commands for pm2
+# change the name of the application (npm), some other useful commands
+- pm2 list (list down all the server started by pm2)
+- pm2 stop npm (npm is the name of the package, it stopped the process running on the background)
+- pm2 delete npm (deletes the process)
+- custom name can be given when starting the process - pm2 start npm --name "devtinder-backend" -- start
+- pm2 start npm --name "custom-name" -- start 
+
+# Understanding how things are running 
+Fronted: http://16.171.151.54
+Backend: http://16.171.151.54:7000/
+
+# DNS mapping
+Domain name = devTinder.com => 16.171.151.54
+
+front-end = devTinder.com
+
+# we have to map port number to /api (path) - use nginx proxy pass 
+- chatgpt prompt - nginx config map path of /api to 7000 node application
+back-end = devTinder.com:7000 => devTinder.com/api
+
+# Note: any request that comes to a server first goes to nginx
+- whenever - devTinder.com/api request comes nginx maps to
+- It will map it to new proxy pass http://localhost:/7000 
+- To achieve this we will be using nginx proxy pass
+- During this process the first step is to edit the nginx configuration
+- We can do that from ubuntu terminal
+
+# How to edit a file in the terminal - Go to the below path
+- Command: sudo nano /etc/nginx/available-sites/default
+- Here we can edit the confifuration files
+- Here we can also see - server {listen:80 (default_server)}
+- This is the reason why we enable the port 80 
+
+## Now we will set a configuration a proxy passs
+- Note: sever_name _; - change it to the port in which we are running our application
+- When we have a domain name, we can change this to domain name as well 
+- Step1: Edit the sever name to the current ip address = (server_name 16.171.151.54)
+- Note: Add an another rule below the server name
+
+- Enter this prompt in chatgpt: nginx config map path of /api to 7000 node application
+- You will get this file in return you have to make some changes on it
+
+NOTE: While editing the proxy pass you can't miss even a single "/" 
+    # Make sure that you restart after making these changes
+
+ location /api/ {
+        proxy_pass http://localhost:7000/;   # Forward requests to Node app
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+# changes applies 
+1. server_name _ = server_name 16.171.151.54
+2. proxy_pass http://127.0.0.1:7000/; = proxy_pass http://localhost:7000/; (localhost)
+
+- How to come out of the nginx configuration after making the changes
+1. Press (CLT + X), (Y) and finally press (Enter)
+
+- Next, you must restart the nginx, otherwise it will not take the new config
+1. restart nginx - sudo systemctl restart nginx 
+
+# Changes in the browser 
+1. From 404 Not found to Cannot GET /api/
+
+# Changes in the front-end 
+1. In the front-end you must change the BASE_URL  = "http"//localhost:7000/ to '/api';
+- export const BASE_URL = 'http://localhost:7000' to = export const BASE_URL = '/api';
+
+# push to git repo after making this change and git clone in the frontend of the devTinder
+1. git add ., git commit -m 'Update Base URL', git push origin main

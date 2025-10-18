@@ -1,1 +1,3 @@
-export const BASE_URL = 'http://localhost:7000';
+// change it to
+// export const BASE_URL = 'http://localhost:7000';
+export const BASE_URL = '/api';
