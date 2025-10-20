@@ -265,7 +265,7 @@ response?.data?.data
         - You will be logged in to the instance 
 
     
-    ## Install dependencies - nvm (use nvm not npm)
+    ## Install dependencies - nvm (use nvm not npm) - Node version of the local machine and ubunut must be same
         - Chose macos - nvm - npm - to get below command
         - Install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
         - Install node - same version as your computer 
@@ -285,7 +285,9 @@ response?.data?.data
 
             # Nginx Command
             - sudo apt install nginx (press y)
-            - sudo systemctl start nginx (it feels nothing happened)
+            - sudo systemctl start nginx (after making changes to nginx config file) 
+            - sudo systemctl restart nginx
+            - nginx -t (checks for the error in nginx file)
             - sudo systemctl enable nginx
             - sudo systemctl status nginx (check the status of nginx)
 
@@ -316,6 +318,22 @@ response?.data?.data
 
     Note: Our frontend code doesn't run on HTTPS because while creating inbound rules
     We are selecting, Type- HTTP
+
+    # Error in the backend resolved
+    - Earlier whenever I was reloading the page in a particular api - nginx Nog Found 404 error was there
+    - Nginx Not Found Error 
+
+    - How to resolve the error? 
+    1. sudo nano /etc/nginx/sites-available/default
+    2.       location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+
+                root /var/www/html;
+                index index.html;
+                try_files $uri /index.html; (From try_files $uri $uri/ =404 to  /index.html;)
+        }
+
 
 =====================================================================================================================
 
@@ -447,4 +465,179 @@ NOTE: While editing the proxy pass you can't miss even a single "/"
 - export const BASE_URL = 'http://localhost:7000' to = export const BASE_URL = '/api';
 
 # push to git repo after making this change and git clone in the frontend of the devTinder
-1. git add ., git commit -m 'Update Base URL', git push origin main
+1. git add ., git commit -m 'Update Base URL', git push origin main\
+2. git log in the ubuntu always 
+3. git pull (all changes are pulled from the origin)
+
+# ONE MORE MAJOR CHANGE IS THAT: YOU HAVE TO AGAIN RE-DEPLOY AFTER PERFORMING: git log
+# Step by Step approach again 
+1. npm run build 
+2. sudo scp -r dist/* /var/www/html/
+
+# Now check in the browser the apis are being called correctly
+
+============================================================================================================
+
+- For mapping your website to a DNS, you need
+1. Domain (Godaddy)
+2. SSL certificate (cloudflare) 
+    - Cloudflare manages the DNS of devTinder.in
+
+
+# Deploying the website in the actual Domain Name - DNS - Domain Name server
+1. Chose GoDaddy
+2. No need of professional email
+3. Go To Dashboard -> Products -> devTinder.in -> Manage DNS 
+4. DNS Management (DNS Mapping) -> We are going to chose Cloudflare for managing DNS
+
+# ClourFlare Setup - Free  - Manage DNS name
+- Create a account in cloudflare
+- Note: you can do DNS mapping into GOdaddy as well but this is a better option
+- Homepage - Add a Domain Name
+- Add an existing Domain Name -> Chose quick scans for dns records -> Free version
+- Review your DNS records - to remove the error - Click on activation
+- You will get - Your assinged Cloudfare nameservers:   
+    1. (You will get this from cloudfare) 
+    2. (You will get this from cloudfare)
+
+# Next Steps for CloudFare
+- Copy these name severs from cloudfare and go to Godaddy 
+- In Godaddy -> Name Servers -> Click Change Nameservers
+- Edit Name Severs (will pop up) -> Click use my own nameservers
+- Copy the name servers from Cloudflare -> Click Save -> Continue
+- Refresh the page for changes
+- Go Back To - CloudFlare - Click Check the name servers
+- You have to around 15-20 mins for an update - Pending name server update shown in the page
+- You can see the update back in the godaddy as well
+
+
+# After setting the name servers in CloudFare - Go to DNS Records of CloudFlare
+- Update Domain Name records   
+- DNS - Records
+- Name should point to my ip address but it is pointing to random ip address
+- Edit the first A records and Delete the Second A records
+- Edit the first A records -> Change the IPv4 addersss to (16.171.151.54)
+- Delete the second one
+- Proxy Status turned on, Click Save
+
+# CNAME
+- Explanation: When a user enters - www - (redirect to) devTinder.in - (points to) 16.171.151.54
+- CNAME - www - devTinder.in - 16.171.151.54
+
+# Enabling SSL - to make our website safe
+- Go to SSL/TLS on CloudFlare
+- In Overview - Click Configure
+- Go to Custom SSL/TLS (By default: Automatic SSL is selected)
+- Select Flexible (https will be there)
+- Click Save
+
+# For Full SSL 
+- For Full (you have to put SSL certificate in your website as well) 
+- Put SSL certificate in original server also
+- You have to make some nginx configuration
+
+# Edge Certificate inside CloudFlare
+- Look for option 
+- Automatic HTTPS Rewrites
+- Enable this (http will be redirected to https) (https secure)
+
+=============================================================================================================
+
+# Sending email through Amzaon SEZ (Simple Email Service)
+
+# Create IAM First - Search IAM 
+- Step 1 - Chose mumbai region (currently I have chose Europe Stockholm)
+- Step 2 - Create IAM (through a serach in the bar) - Identity and Access Management (IAM)
+- Step 3 - Create a user - Go to Users - 0 (currently)
+- Step 4 - Name of ther user (any) - ses-user, Click Nest
+- Step 5 - (Multiple Options) (Attach policies directly)
+- Step 6 - Giving permissions (by searching) - amazonses
+- Step 7 - Give full access - (allow send email & read email), Click Next
+- Step 8 - Review and Create - Click - create user 
+- Step 9 - Go back to aws console - clicking on the left upper conner (aws)
+- Step 10 - Search for (Simple Email Service)
+
+# Setting up Create Identity
+- Step 1 - Go to Account Dashboard from the left side 
+- Step 2 - Click - Create Identity
+- Step 3 - Chose Domain 
+- Step 4 - Advanced DKIM settings -> Identity type -> DKIM signing key length -> RSA_2048_BIT
+- Step 5 - Publish DNS records to Route53 -> Enabled
+- Step 6 - DKIM signatures -> Enabled
+- Step 7 - Click -> Create Identity
+
+- Note: Action required 
+  To verify ownership of this identity, DKIM must be configured in the domain's DNS settings using the CNAME records provided.
+  
+- Note: Three CNAME are under authentication inside - Publish DNS records 
+1. CNAME: vajgnmtyvm3yaewizzyk6gzedryucgec._domainkey.aryantesting.com - value: vajgnmtyvm3yaewizzyk6gzedryucgec.dkim.amazonses.com
+2. CNAME: ls7chigl5wip5pbm5fsjgai2atwgc6np._domainkey.aryantesting.com - value: ls7chigl5wip5pbm5fsjgai2atwgc6np.dkim.amazonses.com
+3. CNAME: 3tohbmkblexo3dbprnum3poyi32x6xii._domainkey.aryantesting.com - value: 3tohbmkblexo3dbprnum3poyi32x6xii.dkim.amazonses.com
+
+- Amazon SES wants to verify that whether I am the owner of aryantesting.com or not
+
+# Now, You have to set these DNS records in CloudFlare - Turn off proxy status, while setting DNS record
+1. Create a CNAME - under the CNAME and paste value at content- similary create for three
+
+# Wait for sometime for verification 
+DKIM configuration: Successful
+
+Go Back to Get Set up page
+
+2. Request production access
+    - Request Details: 
+    - Transactional 
+    - website url 
+    - Additional contacts - optional
+    - Acknowledge and sumbit request 
+    - Verify email as well - a mail will be sent to your email address
+
+# Until the verification is done we can still send 200 emails per day 
+# To send the email we need few things from the IAM 
+- Now swtich back to IAMs
+- Go to IAM user -> Click -> ses-user -> Security Credentials
+- In security credentials -> Create access key -> other -> Giving tag is optional
+- Tag -> Dev
+- Secret Access Key - Ln4IQ2HREsoPBTMTmi4RIvffv8dbIlkovm+dj1FH
+- 
+
+
+
+===============================================================================================================
+
+# dotenv(), .env
+
+# Security issues in our code
+1. MonogDB password visible
+2. Token secret key is visible 
+3. PORT number is visible
+
+# Enabling Security Feature in our Project
+- This file is created in the backend with a name .env
+- You don't need to use var, let or const for creating a env variable
+- You don't need to put secret things inside the double quotes still it is valid
+- However, it is prefered to give double quotes
+
+# Creating env variable 
+- create a .env file in root level
+- The secret keys can should be declared with CAPITAL LETTERS with necessary (_)
+- All the secret keys are attached inside the a global object known as process
+- Therefore, we can access the hidden secret anywhere inside the code
+- However, to make this work this is not enough 
+
+# How to make process.env works? 
+- To make process.env works we need to install and import this package= .dotenv
+- Command: npm install dotenv()
+- Next, we need to config file
+- Insdie the root level of the application - app.js
+- require("dotenv").config().
+
+# Last Step 
+- .env() file must be added in the .gitignore() 
+- In this way, the keys will be only inside our sys
+
+# Problem in git repo being ahead 
+- First track all the changes you have done - Note them
+- Make a git pull (everything will be resolved)
+- Make those changes again and push the code to the origin
+
